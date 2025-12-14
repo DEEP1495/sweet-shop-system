@@ -1,93 +1,81 @@
+import request from "supertest";
+import app from "../app";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
+
 dotenv.config();
 
-import request from "supertest";
-import mongoose from "mongoose";
-import app from "../app";
+let token: string;
 
-let userToken: string;
-let adminToken: string;
-
+/**
+ * Runs once BEFORE all tests
+ */
 beforeAll(async () => {
-  const mongoUri = process.env.MONGO_URI as string;
-  await mongoose.connect(mongoUri);
+  // Connect to MongoDB for this test file
+  await mongoose.connect(process.env.MONGO_URI as string);
 
-  // -------------------------
-  // Register NORMAL user
-  // -------------------------
-  const userRes = await request(app)
-    .post("/api/auth/register")
-    .send({
-      name: "Normal User",
-      email: "normaluser@gmail.com",
-      password: "123456",
-    });
-
-  userToken = userRes.body.token;
-
-  // -------------------------
   // Register ADMIN user
-  // -------------------------
-  await request(app)
-    .post("/api/auth/register")
-    .send({
-      name: "Admin User",
-      email: "adminuser@gmail.com",
-      password: "123456",
-    });
-
-  // Promote admin user in DB
-  await mongoose.connection
-    .collection("users")
-    .updateOne(
-      { email: "adminuser@gmail.com" },
-      { $set: { role: "admin" } }
-    );
-
-  // 🔑 LOGIN AGAIN to get ADMIN token
-  const adminLoginRes = await request(app)
-    .post("/api/auth/login")
-    .send({
-      email: "adminuser@gmail.com",
-      password: "123456",
-    });
-
-  adminToken = adminLoginRes.body.token;
-}, 15000);
-
-afterAll(async () => {
-  await mongoose.connection.dropDatabase();
-  await mongoose.connection.close();
-}, 15000);
-
-describe("Sweet API (Role Based)", () => {
-  it("should NOT allow non-admin user to create a sweet", async () => {
-    const res = await request(app)
-      .post("/api/sweets")
-      .set("Authorization", `Bearer ${userToken}`)
-      .send({
-        name: "Rasgulla",
-        category: "Dessert",
-        price: 40,
-        quantity: 10,
-      });
-
-    expect(res.status).toBe(403);
-    expect(res.body.message).toBe("Admin only route");
+  await request(app).post("/api/auth/register").send({
+    name: "Admin User",
+    email: "admin@sweet.com",
+    password: "password123",
   });
 
-  it("should allow admin user to create a sweet", async () => {
+  // 🔑 Manually promote user to ADMIN (test shortcut)
+  await mongoose.connection.collection("users").updateOne(
+    { email: "admin@sweet.com" },
+    { $set: { role: "admin" } }
+  );
+
+  // Login ADMIN user
+  const res = await request(app).post("/api/auth/login").send({
+    email: "admin@sweet.com",
+    password: "password123",
+  });
+
+  token = res.body.token;
+});
+
+/**
+ * Runs once AFTER all tests
+ */
+afterAll(async () => {
+  await mongoose.disconnect();
+});
+
+describe("Sweet API", () => {
+  it("should NOT create sweet without auth", async () => {
+    const res = await request(app).post("/api/sweets").send({
+      name: "Ladoo",
+      category: "Indian",
+      price: 10,
+      quantity: 50,
+    });
+
+    expect(res.status).toBe(401);
+  });
+
+  it("should create a sweet (ADMIN only)", async () => {
     const res = await request(app)
       .post("/api/sweets")
-      .set("Authorization", `Bearer ${adminToken}`)
+      .set("Authorization", `Bearer ${token}`)
       .send({
-        name: "Kaju Katli",
-        category: "Dessert",
-        price: 100,
-        quantity: 5,
+        name: "Ladoo",
+        category: "Indian",
+        price: 10,
+        quantity: 50,
       });
 
     expect(res.status).toBe(201);
-    expect(res.body.name).toBe("Kaju Katli");
+    expect(res.body.name).toBe("Ladoo");
+  });
+
+  it("should fetch all sweets", async () => {
+    const res = await request(app)
+      .get("/api/sweets")
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
   });
 });

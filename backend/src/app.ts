@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+
 import authRoutes from "./routes/auth.routes";
 import sweetRoutes from "./routes/sweet.routes";
 

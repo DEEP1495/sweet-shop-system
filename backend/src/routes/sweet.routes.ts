@@ -14,12 +14,19 @@ import { adminOnly } from "../middleware/admin.middleware";
 
 const router = Router();
 
-router.post("/", protect, adminOnly, addSweet);
+/**
+ * 🔐 Protected Routes
+ */
+router.get("/search", protect, searchSweets); // ✅ MUST be above "/"
 router.get("/", protect, getSweets);
-router.get("/search", protect, searchSweets);
+router.post("/:id/purchase", protect, purchaseSweet);
+
+/**
+ * 🔒 Admin Routes
+ */
+router.post("/", protect, adminOnly, addSweet);
 router.put("/:id", protect, adminOnly, updateSweet);
 router.delete("/:id", protect, adminOnly, deleteSweet);
-router.post("/:id/purchase", protect, purchaseSweet);
 router.post("/:id/restock", protect, adminOnly, restockSweet);
 
 export default router;
