@@ -85,8 +85,18 @@ Backend development: ChatGPT helped me think through the structure of Express co
 
 Frontend integration: I used ChatGPT to debug React + TypeScript issues such as Axios setup, handling JWT tokens, protected routes, and state updates after API calls.
 
+
 Testing support: ChatGPT guided me on how to structure Jest and Supertest tests properly, especially around beforeAll / afterAll, database cleanup, and fixing async test failures.
 
 Git & workflow issues: I used ChatGPT to solve Git and GitHub problems like authentication errors, branch setup, and pushing the project correctly to a public repository.
 
 Documentation: ChatGPT helped me organize and polish the README so it clearly explains the project, setup steps, and AI usage in a professional way.
+
+Screenshots:
+server.png
+<img width="1920" height="1032" alt="server" src="https://github.com/user-attachments/assets/8943059b-d277-43c9-8f07-4bec1303c6bd" />
+test.png
+<img width="1920" height="1032" alt="test" src="https://github.com/user-attachments/assets/88b18e7f-d7ee-4687-ba8b-cee114739b52" />
+structure.png
+<img width="1920" height="1032" alt="structure" src="https://github.com/user-attachments/assets/55ad582f-07ed-45a9-8366-50665183b509" />
+
