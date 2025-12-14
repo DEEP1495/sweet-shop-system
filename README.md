@@ -1,55 +1,92 @@
-# 🍬 Sweet Shop System
+# 🍬 Sweet Shop Management System
 
-A full-stack Sweet Shop Management System built using **React, TypeScript, Node.js, Express, and MongoDB**.
+A full-stack Sweet Shop Management System built using **React, TypeScript, Node.js, Express, MongoDB, and JWT authentication**.
 
----
+The application supports role-based access control with separate functionalities for **Users** and **Admins**.
 
-## ✨ Features
+## 📌 Project Overview
+This project allows users to browse and purchase sweets, while administrators can manage inventory by adding or deleting sweets. The system ensures secure authentication, authorization, and real-time stock updates after purchases.
 
-- JWT based authentication
-- Role based access control (User / Admin)
-- Users can:
-  - Login / Logout
-  - View sweets
-  - Purchase sweets
-- Admin can:
-  - Add sweets
-  - Delete sweets
-- Stock automatically updates after purchase
+## 🚀 Features
+### 🔐 Authentication & Authorization
+* JWT-based login and registration
+* Role-based access control (User / Admin)
+* Protected backend routes
 
----
+### 👤 User Features
+* Login / Logout
+* View sweets
+* Purchase sweets
+* Automatic inventory updates
 
-## 🛠 Tech Stack
+### 🛠️ Admin Features
+* Add new sweets
+* Delete sweets
+* Manage inventory
 
-### Frontend
-- React
-- TypeScript
-- Axios
-- React Router DOM
+## 🧰 Tech Stack
+* **Frontend:** React, TypeScript, Axios
+* **Backend:** Node.js, Express.js, TypeScript, MongoDB, JWT
+* **Testing:** Jest, Supertest
 
-### Backend
-- Node.js
-- Express.js
-- MongoDB
-- JWT Authentication
+## 📂 Project Structure
+```text
+TDD_assessment/
+├── backend/
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── routes/
+│   │   ├── tests/
+│   │   └── server.ts
+├── frontend/ (In Progress)
+├── README.md
 
----
+## ⚙️ How to Run the Project Locally
 
-## 👥 Roles
-
-### User
-- View sweets
-- Purchase sweets
-
-### Admin
-- Add new sweets
-- Delete sweets
-
----
-
-## 🚀 How to Run the Project
-
-### 1️⃣ Clone the repository
+### 1️⃣ Clone the Repository
 ```bash
-git clone <repository-url>
+git clone [https://github.com/DEEP1495/sweet-shop-system.git](https://github.com/DEEP1495/sweet-shop-system.git)
 cd TDD_assessment
+2️⃣ Backend Setup
+Bash
+
+cd backend
+npm install
+npm run dev
+Backend runs on: http://localhost:5000
+
+Note: Ensure you have a .env file with MONGO_URI, JWT_SECRET, and PORT.
+3️⃣ Frontend Setup
+Bash
+
+cd frontend
+npm install
+npm run dev
+Frontend runs on: http://localhost:5173
+
+🧪 Running Tests
+Bash
+
+cd backend
+npm test
+```
+My AI Usage
+AI Tools Used
+
+ChatGPT (OpenAI)
+
+How I Used AI
+
+I used ChatGPT as a learning and problem-solving companion throughout this project.
+
+Debugging help: Whenever I got stuck with errors (TypeScript issues, MongoDB queries, JWT authentication problems, or API failures), I used ChatGPT to understand why the error was happening and how to fix it.
+
+Backend development: ChatGPT helped me think through the structure of Express controllers, middleware, and role-based access (user vs admin). I still wrote and adjusted the code myself after understanding the suggestions.
+
+Frontend integration: I used ChatGPT to debug React + TypeScript issues such as Axios setup, handling JWT tokens, protected routes, and state updates after API calls.
+
+Testing support: ChatGPT guided me on how to structure Jest and Supertest tests properly, especially around beforeAll / afterAll, database cleanup, and fixing async test failures.
+
+Git & workflow issues: I used ChatGPT to solve Git and GitHub problems like authentication errors, branch setup, and pushing the project correctly to a public repository.
+
+Documentation: ChatGPT helped me organize and polish the README so it clearly explains the project, setup steps, and AI usage in a professional way.
