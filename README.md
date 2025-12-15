@@ -30,16 +30,54 @@ This project allows users to browse and purchase sweets, while administrators ca
 * **Testing:** Jest, Supertest
 
 ## 📂 Project Structure
+
 ```text
 TDD_assessment/
 ├── backend/
+│   ├── node_modules/
 │   ├── src/
+│   │   ├── config/
+│   │   │   └── db.ts
 │   │   ├── controllers/
+│   │   │   ├── auth.controller.ts
+│   │   │   └── sweet.controller.ts
+│   │   ├── middleware/
+│   │   │   ├── admin.middleware.ts
+│   │   │   └── auth.middleware.ts
+│   │   ├── models/
+│   │   │   ├── sweet.model.ts
+│   │   │   └── user.model.ts
 │   │   ├── routes/
+│   │   │   ├── auth.routes.ts
+│   │   │   └── sweet.routes.ts
 │   │   ├── tests/
+│   │   │   ├── auth.test.ts
+│   │   │   ├── inventory.test.ts
+│   │   │   ├── search.test.ts
+│   │   │   └── sweet.test.ts
+│   │   ├── utils/
+│   │   │   └── generateToken.ts
 │   │   └── server.ts
-├── frontend/ (In Progress)
-├── README.md
+│   ├── .env
+│   ├── jest.config.js
+│   ├── package.json
+│   └── tsconfig.json
+├── frontend/
+│   ├── node_modules/
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── pages/
+│   │   ├── App.tsx
+│   │   └── main.tsx
+│   ├── index.html
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── vite.config.ts
+├── .gitignore
+└── README.md
 
 ## ⚙️ How to Run the Project Locally
 
