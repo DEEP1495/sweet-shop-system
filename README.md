@@ -107,6 +107,13 @@ Bash
 
 cd backend
 npm test
+
+All Routes:
+http://localhost:5173/sweets->main dashboard.
+http://localhost:5173/login->registered user.|| for admin you need to change it through db.
+http://localhost:5173/register ->for new user 
+http://localhost:5173/dashboard ->dashboard.
+
 ```
 My AI Usage
 AI Tools Used
